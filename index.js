@@ -57,7 +57,7 @@ function sayGoodbye(name) {
  * Hint 2: There is a very easy way to round numbers in JS. Do a google search to find out how. 
 */
 function temperatureCtoF(t) {
-   return Math.round((t*9/5) + 32);
+  return Math.round((t * 9 / 5) + 32);
   //  return (t*9/5) + 32;
 }
 // console.log(temperatureCtoF(36));
@@ -80,11 +80,11 @@ function temperatureCtoF(t) {
  * Hint: You can call your `temperatureCtoF` function from inside `temperatureInF`.
 */
 function temperatureInF(t, unit) {
-    if (unit=='F') return `${t}${unit}`;
-    if (unit =='C') {
-       let tC = temperatureCtoF(t);
-       return `${tC}${unit}`;
-    }
+  if (unit == 'F') return `${t}${unit}`;
+  if (unit == 'C') {
+    let tC = temperatureCtoF(t);
+    return `${tC}${unit}`;
+  }
 }
 // console.log(temperatureInF(35,'C'));
 
@@ -106,12 +106,12 @@ function temperatureInF(t, unit) {
  * }
 */
 function makePersonObject(_id, _name, _email) {
-     let obj = {
-       id : _id,
-       name : _name,
-       email : _email
-     };
-     return obj;
+  let obj = {
+    id: _id,
+    name: _name,
+    email: _email
+  };
+  return obj;
 }
 // console.log(makePersonObject(5,'Leia','leia@leia.com'));
 
@@ -152,8 +152,8 @@ function getName(obj) {
  * the returned value should be: 2.
 */
 function appleIndex(strArr) {
-  for (let i=0; i<strArr.length; i++){
-     if (strArr[i]=='apple') return i;
+  for (let i = 0; i < strArr.length; i++) {
+    if (strArr[i] == 'apple') return i;
   }
 }
 // console.log(appleIndex(['orange', 'grape', 'apple', 'banana', 'mango' ]));
@@ -174,12 +174,12 @@ function appleIndex(strArr) {
  * the returned value should be: [ false, true, false, false, true, false ].
 */
 function isItAnApple(strArr) {
-    let retArr = [];
-    for (let i=0; i<strArr.length; i++) {
-      if (strArr[i] == 'apple') retArr.push(true);
-      else retArr.push(false);
-    }
-    return retArr;
+  let retArr = [];
+  for (let i = 0; i < strArr.length; i++) {
+    if (strArr[i] == 'apple') retArr.push(true);
+    else retArr.push(false);
+  }
+  return retArr;
 }
 // console.log(isItAnApple([ 'orange', 'apple', 'banana', 'apples', 'apple', 'mango' ]));
 
@@ -236,7 +236,7 @@ function get3rdCar(inventory) {
 */
 function getCarInfoByIndex(inventory, index) {
   let carMake = inventory[index].car_make;
-  let carModel =  inventory[index].car_model;
+  let carModel = inventory[index].car_model;
   return `This is a ${carMake} ${carModel}`;
 }
 
@@ -254,11 +254,11 @@ function getCarInfoByIndex(inventory, index) {
  * it will return `This is a Lincoln Town Car`.
 */
 
-const {inventoryJson} = require('./data/inventory');
+const { inventoryJson } = require('./data/inventory');
 
 function getLastCarInfo(inventory) {
-  let carMake = inventory[inventory.length-1].car_make;
-  let carModel = inventory[inventory.length-1].car_model;
+  let carMake = inventory[inventory.length - 1].car_make;
+  let carModel = inventory[inventory.length - 1].car_model;
   return `This is a ${carMake} ${carModel}`;
 }
 // console.log(getLastCarInfo(inventoryJson));
@@ -273,12 +273,12 @@ function getLastCarInfo(inventory) {
  * getModelYears returns an array containing all the 'car_year's in the inventory.
 */
 function getModelYears(inventory) {
-   let yearsArr = [];
-   for (let i=0; i<inventory.length; i++) {
-       let year = inventory[i].car_year;
-       yearsArr.push(year);
-   }
-   return yearsArr;
+  let yearsArr = [];
+  for (let i = 0; i < inventory.length; i++) {
+    let year = inventory[i].car_year;
+    yearsArr.push(year);
+  }
+  return yearsArr;
 }
 // console.log(getModelYears(inventoryJson));
 
@@ -296,9 +296,18 @@ function getModelYears(inventory) {
  * For example, if getCarInfoById is invoked with the inventory and the number 1,
  * it will return `This is a Lincoln Navigator`.
 */
-function getCarInfoById(/* code here */) {
-  /* code here */
+function getCarInfoById(inventory, id) {
+  let carMake, carModel;
+  for (let i = 0; i < inventory.length; i++) {
+    if (inventory[i].id == id) {
+      carMake = inventory[i].car_make;
+      carModel = inventory[i].car_model;
+      return `This is a ${carMake} ${carModel}`;
+    }
+  }
 }
+
+// console.log(getCarInfoById(inventoryJson,18));
 
 /**
  * ### Challenge `getOlderCars`
@@ -314,9 +323,24 @@ function getCarInfoById(/* code here */) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(/* code here */) {
-  /* code here */
+function getOlderCars(inventory, maxYear) {
+  let olderCars = [];
+  for (let i = 0; i < inventory.length; i++) {
+    if (inventory[i].car_year <= maxYear) {
+      olderCars.push(inventory[i]);
+    }
+  }
+  return olderCars;
 }
+let olderCars = getOlderCars(inventoryJson, 1996);
+
+/* let str = JSON.stringify(olderCars);
+console.log(str); */
+
+/* for (let i = 0; i < olderCars.length; i++) {
+    console.log(olderCars[i].id);
+    console.log(olderCars[i].car_year);
+} */
 
 /**
  * ### Challenge `getGermanCars`
@@ -331,9 +355,18 @@ function getOlderCars(/* code here */) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
 */
-function getGermanCars(/* code here */) {
-  /* code here */
+function getGermanCars(inventory) {
+  let GermanMakers = ["Audi", "Mercedes-Benz", "Volkswagen", "BMW"];
+  let GermanCars = [];
+  for (let i = 0; i < inventory.length; i++) {
+    for (let j = 0; j < GermanMakers.length; j++) {
+      if (inventory[i].car_make == GermanMakers[j])
+        GermanCars.push(inventory[i]);
+    }
+  }
+  return GermanCars;
 }
+// console.log(getGermanCars(inventoryJson));
 
 /**
  * ### Challenge `carMaker`
@@ -348,7 +381,16 @@ function getGermanCars(/* code here */) {
  *         (1) causes the odometer in the object to be increased by the distance,
  *         (2) returns the updated value of the `odometer`.
 */
-function carMaker(/* code here */) {
-  /* code here */
+function carMaker(_odometer) {
+  let obj = {
+      odometer:_odometer,
+      drive: function(distance) {
+        this.odometer += distance;
+      }
+  };
+  return obj;
 }
 
+let car = carMaker(50);
+car.drive(25);
+// console.log(car.odometer);
